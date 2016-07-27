@@ -3,6 +3,16 @@ class openvpn inherits openvpn::params {
     ensure => installed,
   }
 
+  file { $etcdir:
+    ensure  => directory,
+    owner   => 'root',
+    group   => $admin_group,
+    mode    => '0755',
+    purge   => true,
+    recurse => true,
+    force   => true,
+  }
+
   if $::osfamily == 'Debian' {
     # Debian's init script for OpenVPN are a PITA.
     #
