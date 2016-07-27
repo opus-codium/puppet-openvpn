@@ -84,4 +84,7 @@ define openvpn::config (
       order   => '060',
     }
   }
+
+  openvpn::service { $title:
+  }
 }
