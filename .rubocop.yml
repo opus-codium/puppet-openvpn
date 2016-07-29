@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - spec/fixtures/**/*
+    - vendor/**/*
+
+Metrics/LineLength:
+  Max: 120
+
+Style/TrailingCommaInArguments:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
