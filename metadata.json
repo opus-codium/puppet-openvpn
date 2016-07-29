@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Romain Tartière",
   "summary": "Manage OpenVPN",
-  "license": "Apache 2.0",
+  "license": "MIT",
   "source": "https://github.com/opus-codium/puppet-openvpn",
   "project_page": "https://github.com/opus-codium/puppet-openvpn",
   "issues_url": "https://github.com/opus-codium/puppet-openvpn/issues",
