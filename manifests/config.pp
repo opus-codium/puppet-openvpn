@@ -32,10 +32,10 @@ define openvpn::config (
   $filename = "${openvpn::etcdir}/${title}.conf"
 
   concat { "${openvpn::etcdir}/${title}.conf":
-    ensure  => present,
-    owner   => 'root',
-    group   => $::openvpn::admin_group,
-    mode    => '0600',
+    ensure => present,
+    owner  => 'root',
+    group  => $::openvpn::admin_group,
+    mode   => '0600',
   }
 
   concat::fragment { "${title}-openvpn.conf-base":
@@ -45,10 +45,10 @@ define openvpn::config (
   }
 
   if $ca or $cert or $key {
-    if $ca == undef { fail("ca must be set") }
-    if $cert == undef { fail("cert must be set") }
-    if $key == undef { fail("key must be set") }
-    if $role == 'server' and $dh == undef { fail("dh must be set") }
+    if $ca == undef { fail('ca must be set') }
+    if $cert == undef { fail('cert must be set') }
+    if $key == undef { fail('key must be set') }
+    if $role == 'server' and $dh == undef { fail('dh must be set') }
 
     concat::fragment { "${title}-openvpn.conf-tls":
       target  => $filename,

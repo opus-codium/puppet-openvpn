@@ -31,6 +31,9 @@ define openvpn::service (
         File["/usr/local/etc/rc.d/${title}"] -> Service[$title]
       }
     }
+    default: {
+      fail("Unsupported osfamily: ${::osfamily}")
+    }
   }
 
   if $manage_service {

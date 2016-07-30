@@ -3,10 +3,10 @@ class openvpn inherits openvpn::params {
     ensure => installed,
   }
 
-  file { $etcdir:
+  file { $openvpn::params::etcdir:
     ensure  => directory,
     owner   => 'root',
-    group   => $admin_group,
+    group   => $openvpn::params::admin_group,
     mode    => '0755',
     purge   => true,
     recurse => true,
