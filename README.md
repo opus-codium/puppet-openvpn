@@ -1,5 +1,7 @@
 # openvpn
 
+[![Build Status](https://travis-ci.org/opus-codium/puppet-openvpn.svg?branch=master)](https://travis-ci.org/opus-codium/puppet-openvpn)
+
 #### Table of Contents
 
 1. [Overview](#overview)
