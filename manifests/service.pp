@@ -3,6 +3,8 @@ define openvpn::service (
 ) {
   case $::osfamily {
     'Debian': {
+      $service_provider = 'systemd'
+
       file { "/etc/systemd/system/${title}.service":
         ensure  => file,
         owner   => 'root',
@@ -22,6 +24,8 @@ define openvpn::service (
       }
     }
     'FreeBSD': {
+      $service_provider = 'freebsd'
+
       file { "/usr/local/etc/rc.d/${title}":
         ensure => link,
         target => '/usr/local/etc/rc.d/openvpn',
@@ -38,8 +42,9 @@ define openvpn::service (
 
   if $manage_service {
     service { $title:
-      ensure => running,
-      enable => true,
+      ensure   => running,
+      enable   => true,
+      provider => $service_provider,
     }
   }
 }
