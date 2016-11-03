@@ -1,7 +1,7 @@
 {
   "name": "opuscodium-openvpn",
-  "version": "1.0.0",
-  "author": "Romain Tartière",
+  "version": "1.0.1",
+  "author": "Romain Tartiere",
   "summary": "Manage OpenVPN",
   "license": "MIT",
   "source": "https://github.com/opus-codium/puppet-openvpn",
