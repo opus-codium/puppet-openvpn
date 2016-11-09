@@ -80,7 +80,7 @@ define openvpn::config (
   }
 
   if $status {
-    concat::fragment { "${title}-openvpn.status":
+    concat::fragment { "${title}-openvpn.conf-status":
       target  => $filename,
       content => template('openvpn/status.erb'),
       order   => '055',
