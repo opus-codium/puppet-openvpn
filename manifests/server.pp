@@ -15,6 +15,7 @@ define openvpn::server (
   $dh = undef,
   $status = true,
   $status_version = 2,
+  $ipp_file = undef,
 ) {
   openvpn::config { $title:
     role           => 'server',
@@ -34,5 +35,6 @@ define openvpn::server (
     dh             => $dh,
     status         => $status,
     status_version => $status_version,
+    ipp_file       => $ipp_file,
   }
 }

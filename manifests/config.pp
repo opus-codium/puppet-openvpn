@@ -18,6 +18,7 @@ define openvpn::config (
   $crl = undef,
   $status = undef,
   $status_version = undef,
+  $ipp_file = undef,
 ) {
   include openvpn
 
@@ -87,6 +88,21 @@ define openvpn::config (
     }
 
     file { "${openvpn::etcdir}/${title}-status.log":
+      ensure => file,
+      owner  => $user,
+      group  => $group,
+      mode   => '0644',
+    }
+  }
+
+  if $ipp_file {
+    concat::fragment { "${title}-openvpn.conf-ipp":
+      target  => $filename,
+      content => template('openvpn/ipp.erb'),
+      order   => '056',
+    }
+
+    file { "${openvpn::etcdir}/${title}-ipp.log":
       ensure => file,
       owner  => $user,
       group  => $group,
