@@ -19,6 +19,7 @@ define openvpn::config (
   $status = undef,
   $status_version = undef,
   $ipp_file = undef,
+  $max_clients = undef,
 ) {
   include openvpn
 
@@ -70,6 +71,14 @@ define openvpn::config (
     target  => $filename,
     content => template('openvpn/compression.erb'),
     order   => '040',
+  }
+
+  if $max_clients {
+    concat::fragment { "${title}-openvpn.conf-max-clients":
+      target  => $filename,
+      content => template('openvpn/max-clients.erb'),
+      order   => '045',
+    }
   }
 
   if $user and $group {
