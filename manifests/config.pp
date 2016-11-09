@@ -90,7 +90,7 @@ define openvpn::config (
       ensure => file,
       owner  => $user,
       group  => $group,
-      mode   => '644',
+      mode   => '0644',
     }
   }
 
