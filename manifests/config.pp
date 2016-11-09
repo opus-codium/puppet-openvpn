@@ -18,7 +18,7 @@ define openvpn::config (
   $crl = undef,
   $status = undef,
   $status_version = undef,
-  $ipp_file = undef,
+  $ipp = undef,
   $max_clients = undef,
 ) {
   include openvpn
@@ -104,7 +104,7 @@ define openvpn::config (
     }
   }
 
-  if $ipp_file {
+  if $ipp {
     concat::fragment { "${title}-openvpn.conf-ipp":
       target  => $filename,
       content => template('openvpn/ipp.erb'),
