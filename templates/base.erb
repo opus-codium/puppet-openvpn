@@ -47,3 +47,10 @@ persist-tun
 # Enable plugins (usually for auth)
 # e g 
 # plugin /usr/share/openvpn/plugin/lib/openvpn-auth-pam.so system-auth
+<% @plugins.each do |plugin| -%>
+plugin <%= plugin %>
+<% end -%>
+
+<% @push.each do |push| -%>
+push "<%= push %>"
+<% end -%>

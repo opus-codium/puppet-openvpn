@@ -20,6 +20,8 @@ define openvpn::config (
   $status_version = undef,
   $ipp = undef,
   $max_clients = undef,
+  $plugins = [],
+  $push = [],
 ) {
   include openvpn
 
