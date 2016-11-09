@@ -17,6 +17,8 @@ define openvpn::server (
   $status_version = 2,
   $ipp = undef,
   $max_clients = undef,
+  $plugins = [],
+  $push = [],
 ) {
   openvpn::config { $title:
     role           => 'server',
@@ -37,5 +39,7 @@ define openvpn::server (
     status         => $status,
     status_version => $status_version,
     ipp            => $ipp,
+    plugins        => $plugins,
+    push           => $push,
   }
 }
