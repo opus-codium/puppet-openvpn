@@ -13,6 +13,8 @@ define openvpn::server (
   $crl = undef,
   $ta = undef,
   $dh = undef,
+  $status = true,
+  $status_version = 2,
 ) {
   openvpn::config { $title:
     role     => 'server',

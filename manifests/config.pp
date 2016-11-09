@@ -16,6 +16,8 @@ define openvpn::config (
   $key = undef,
   $ta = undef,
   $crl = undef,
+  $status = undef,
+  $status_version = undef,
 ) {
   include openvpn
 
@@ -74,6 +76,21 @@ define openvpn::config (
       target  => $filename,
       content => template('openvpn/run-as.erb'),
       order   => '050',
+    }
+  }
+
+  if $status {
+    concat::fragment { "${title}-openvpn.status":
+      target  => $filename,
+      content => template('openvpn/status.erb'),
+      order   => '055',
+    }
+
+    file { "${openvpn::etcdir}/${title}-status.log":
+      ensure => file,
+      owner  => $user,
+      group  => $group,
+      mode   => '644',
     }
   }
 

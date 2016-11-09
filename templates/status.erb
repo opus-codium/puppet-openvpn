@@ -1,0 +1,6 @@
+# Output a short status file showing
+# current connections, truncated
+# and rewritten every minute.
+status <%= scope.lookupvar('openvpn::etcdir') %>/<%= @title %>-status.log
+status-version <%= @status_version %>
+
