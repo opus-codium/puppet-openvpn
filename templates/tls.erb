@@ -20,3 +20,4 @@ dh "<%= @dh %>"
 # on the server and '1' on the clients.
 tls-auth "<%= @ta %>" <%= if @role == 'server' then 0 else 1 end %>
 <%- end -%>
+
