@@ -10,19 +10,24 @@ define openvpn::client (
   $cert = undef,
   $key = undef,
   $ta = undef,
+  $ta_content = undef,
 ) {
+  if $ta and !$ta_content {
+    fail("Enabling 'ta' requires setting 'ta_content' too.")
+  }
   openvpn::config { $title:
-    role   => 'client',
-    remote => $remote,
-    proto  => $proto,
-    port   => $port,
-    dev    => $dev,
-    user   => $user,
-    group  => $group,
-    verb   => $verb,
-    ca     => $ca,
-    cert   => $cert,
-    key    => $key,
-    ta     => $ta,
+    role       => 'client',
+    remote     => $remote,
+    proto      => $proto,
+    port       => $port,
+    dev        => $dev,
+    user       => $user,
+    group      => $group,
+    verb       => $verb,
+    ca         => $ca,
+    cert       => $cert,
+    key        => $key,
+    ta         => $ta,
+    ta_content => $ta_content,
   }
 }
