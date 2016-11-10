@@ -1,10 +1,10 @@
 class openvpn::params {
   case $::osfamily {
-    'Debian': {
+    'debian': {
       $etcdir = '/etc/openvpn'
       $admin_group = 'root'
     }
-    'FreeBSD': {
+    'freebsd': {
       $etcdir = '/usr/local/etc/openvpn'
       $admin_group = 'wheel'
     }
