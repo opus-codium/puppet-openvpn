@@ -29,7 +29,7 @@ define openvpn::config (
 
   validate_re($role, ['^server$', '^client$'])
 
-  $ta_file = "${openvpn::etcdir}/${title}-ta.pem"
+  $ta_file = "${openvpn::etcdir}/${title}-ta.key"
   if $ta {
     if $ta_content {
       file { $ta_file:
