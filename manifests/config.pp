@@ -15,6 +15,7 @@ define openvpn::config (
   $cert = undef,
   $key = undef,
   $ta = undef,
+  $ta_content = undef,
   $crl = undef,
   $status = undef,
   $status_version = undef,
@@ -26,6 +27,30 @@ define openvpn::config (
   include openvpn
 
   validate_re($role, ['^server$', '^client$'])
+
+  $ta_file = "${openvpn::etcdir}/${title}-ta.pem"
+  if $ta {
+    if $ta_content {
+      file { $ta_file:
+        ensure  => file,
+        owner   => $openvpn::admin_user,
+        group   => $openvpn::admin_group,
+        mode    => '0600',
+        content => $ta_content,
+      }
+    } else {
+      exec { "${openvpn::openvpn} --genkey --secret \"${ta_file}\"":
+        creates => $ta_file,
+      }
+      ->
+      file { $ta_file:
+        ensure => file,
+        owner  => $openvpn::admin_user,
+        group  => $openvpn::admin_group,
+        mode   => '0600',
+      }
+    }
+  }
 
   if $role == 'server' {
     validate_re($topology, ['^net30$', '^p2p$', '^subnet$'])
