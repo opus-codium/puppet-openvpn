@@ -76,6 +76,12 @@ define openvpn::config (
     order   => '010',
   }
 
+  concat::fragment { "${title}-openvpn.conf-keepalive":
+    target  => $filename,
+    content => template('openvpn/keepalive.erb'),
+    order   => '011',
+  }
+
   if $ca or $cert or $key {
     if $ca == undef { fail('ca must be set') }
     if $cert == undef { fail('cert must be set') }
