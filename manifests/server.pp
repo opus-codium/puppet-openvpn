@@ -18,6 +18,7 @@ define openvpn::server (
   $status_version = 2,
   $ipp = undef,
   $max_clients = undef,
+  $mute = undef,
   $plugins = [],
   $push = [],
 ) {

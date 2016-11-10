@@ -22,30 +22,8 @@ topology <%= @topology %>
 dev <%= @dev %>
 port <%= @port %>
 
-# The persist options will try to avoid
-# accessing certain resources on restart
-# that may no longer be accessible because
-# of the privilege downgrade.
-persist-key
-persist-tun
-
-# Silence repeating messages.  At most 20
-# sequential messages of the same message
-# category will be output to the log.
-;mute 20
-
 # Tell the server to use the username for indexing
 # purposes as it would use the Common Name of a client
 # which was authenticating via a client certificate.
 ;username-as-common-name
 
-# Enable plugins (usually for auth)
-# e g
-# plugin /usr/share/openvpn/plugin/lib/openvpn-auth-pam.so system-auth
-<% @plugins.each do |plugin| -%>
-plugin <%= plugin %>
-<% end -%>
-
-<% @push.each do |push| -%>
-push "<%= push %>"
-<% end -%>

@@ -21,6 +21,7 @@ define openvpn::config (
   $status_version = undef,
   $ipp = undef,
   $max_clients = undef,
+  $mute = undef,
   $plugins = [],
   $push = [],
 ) {
@@ -116,6 +117,12 @@ define openvpn::config (
     }
   }
 
+  concat::fragment { "${title}-openvpn.conf-persist":
+    target  => $filename,
+    content => template('openvpn/persist.erb'),
+    order   => '051',
+  }
+
   if $status {
     concat::fragment { "${title}-openvpn.conf-status":
       target  => $filename,
@@ -151,6 +158,30 @@ define openvpn::config (
       target  => $filename,
       content => template('openvpn/verb.erb'),
       order   => '060',
+    }
+  }
+
+  if $mute {
+    concat::fragment { "${title}-openvpn.conf-mute":
+      target  => $filename,
+      content => template('openvpn/mute.erb'),
+      order   => '061',
+    }
+  }
+
+  if count($plugins) > 0 {
+    concat::fragment { "${title}-openvpn.conf-plugins":
+      target  => $filename,
+      content => template('openvpn/plugins.erb'),
+      order   => '062',
+    }
+  }
+
+  if count($push) > 0 {
+    concat::fragment { "${title}-openvpn.conf-push":
+      target  => $filename,
+      content => template('openvpn/push.erb'),
+      order   => '063',
     }
   }
 

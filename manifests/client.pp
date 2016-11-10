@@ -11,6 +11,7 @@ define openvpn::client (
   $key = undef,
   $ta = undef,
   $ta_content = undef,
+  $mute = undef,
 ) {
   if $ta and !$ta_content {
     fail("Enabling 'ta' requires setting 'ta_content' too.")
