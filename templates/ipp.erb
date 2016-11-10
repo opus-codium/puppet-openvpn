@@ -1,2 +1,2 @@
-ifconfig-pool-persist <%= scope.lookupvar('openvpn::etcdir') %>/<%= @title %>-ipp.txt
+ifconfig-pool-persist <%= @real_ifconfig_pool_persist_file %>
 

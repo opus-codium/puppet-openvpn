@@ -20,7 +20,8 @@ define openvpn::config (
   $crl = undef,
   $status = undef,
   $status_version = undef,
-  $ipp = undef,
+  $ifconfig_pool_persist_enabled = undef,
+  $ifconfig_pool_persist_file = undef,
   $max_clients = undef,
   $mute = undef,
   $plugins = [],
@@ -156,14 +157,19 @@ define openvpn::config (
     }
   }
 
-  if $ipp {
+  if $ifconfig_pool_persist_enabled {
+    if $ifconfig_pool_persist_file {
+      $real_ifconfig_pool_persist_file = $ifconfig_pool_persist_file
+    } else {
+      $real_ifconfig_pool_persist_file = "${openvpn::etcdir}/${title}-ipp.txt"
+    }
     concat::fragment { "${title}-openvpn.conf-ipp":
       target  => $filename,
       content => template('openvpn/ipp.erb'),
       order   => '056',
     }
 
-    file { "${openvpn::etcdir}/${title}-ipp.log":
+    file { $real_ifconfig_pool_persist_file:
       ensure => file,
       owner  => $user,
       group  => $group,
