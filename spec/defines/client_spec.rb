@@ -5,8 +5,9 @@ describe 'openvpn::client' do
   let(:params) do
     {
       remote: '203.0.113.27',
-      ta: ta,
-      ta_content: ta_content,
+      tls_auth_enabled: tls_auth_enabled,
+      tls_auth_content: tls_auth_content,
+      tls_auth_file: tls_auth_file,
     }
   end
   let(:facts) do
@@ -14,8 +15,9 @@ describe 'openvpn::client' do
       osfamily: 'Debian',
     }
   end
-  let(:ta) { :undef }
-  let(:ta_content) { :undef }
+  let(:tls_auth_enabled) { :undef }
+  let(:tls_auth_content) { :undef }
+  let(:tls_auth_file) { :undef }
 
   it do
     is_expected.to contain_openvpn__config('client').with(
@@ -23,18 +25,23 @@ describe 'openvpn::client' do
     )
   end
 
-  describe 'tls auth file' do
-    describe 'enabled' do
-      let(:ta) { true }
-      describe 'with content' do
-        let(:ta_content) { 'bloub' }
+  describe 'tls_auth_enabled' do
+    let(:tls_auth_enabled) { true }
 
-        it { is_expected.to contain_file('/etc/openvpn/client-ta.key').with(content: 'bloub') }
-      end
+    describe 'with tls_auth_content' do
+      let(:tls_auth_content) { 'bloub' }
 
-      describe 'without content' do
-        it { is_expected.to compile.and_raise_error(/Enabling 'ta' requires setting 'ta_content' too./) }
-      end
+      it { is_expected.to contain_file('/etc/openvpn/client-ta.key').with(content: 'bloub') }
+    end
+
+    describe 'with tls_auth_file' do
+      let(:tls_auth_file) { '/bloub' }
+
+      it { is_expected.to_not contain_file('/etc/openvpn/client-ta.key') }
+    end
+
+    describe 'without tls_auth_content nor tls_auth_file' do
+      it { is_expected.to compile.and_raise_error(/Enabling 'tls_auth_enabled' requires setting 'tls_auth_content' or 'tls_auth_file' too./) }
     end
   end
 end

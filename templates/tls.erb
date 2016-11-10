@@ -7,7 +7,7 @@ crl-verify "<%= @crl %>"
 <%- if @dh -%>
 dh "<%= @dh %>"
 <%- end -%>
-<%- if @ta -%>
+<%- if @tls_auth_enabled || @tls_auth_file || @tls_auth_content -%>
 # For extra security beyond that provided
 # by SSL/TLS, create an "HMAC firewall"
 # to help block DoS attacks and UDP port flooding.
@@ -18,6 +18,6 @@ dh "<%= @dh %>"
 # a copy of this key.
 # The second parameter should be '0'
 # on the server and '1' on the clients.
-tls-auth "<%= @ta_file %>" <%= if @role == 'server' then 0 else 1 end %>
+tls-auth "<%= @tls_auth_file %>" <%= if @role == 'server' then 0 else 1 end %>
 <%- end -%>
 

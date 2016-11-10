@@ -14,8 +14,9 @@ define openvpn::config (
   $dh = undef,
   $cert = undef,
   $key = undef,
-  $ta = undef,
-  $ta_content = undef,
+  $tls_auth_enabled = false,
+  $tls_auth_content = undef,
+  $tls_auth_file = undef,
   $crl = undef,
   $status = undef,
   $status_version = undef,
@@ -29,28 +30,8 @@ define openvpn::config (
 
   validate_re($role, ['^server$', '^client$'])
 
-  $ta_file = "${openvpn::etcdir}/${title}-ta.key"
-  if $ta {
-    if $ta_content {
-      file { $ta_file:
-        ensure  => file,
-        owner   => $openvpn::admin_user,
-        group   => $openvpn::admin_group,
-        mode    => '0600',
-        content => $ta_content,
-      }
-    } else {
-      exec { "${openvpn::openvpn} --genkey --secret \"${ta_file}\"":
-        creates => $ta_file,
-      }
-      ->
-      file { $ta_file:
-        ensure => file,
-        owner  => $openvpn::admin_user,
-        group  => $openvpn::admin_group,
-        mode   => '0600',
-      }
-    }
+  if $tls_auth_file and $tls_auth_content {
+    fail("You cannot pass both 'tls_auth_content' and 'tls_auth_file'")
   }
 
   if $role == 'server' {
@@ -62,6 +43,37 @@ define openvpn::config (
   }
 
   $filename = "${openvpn::etcdir}/${title}.conf"
+
+  if $tls_auth_file {
+    $real_tls_auth_file = $tls_auth_file
+  } else {
+    $real_tls_auth_file = "${openvpn::etcdir}/${title}-ta.key"
+  }
+
+  if $tls_auth_enabled or $tls_auth_content or $tls_auth_file {
+    if $tls_auth_content {
+      file { $real_tls_auth_file:
+        ensure  => file,
+        owner   => $openvpn::admin_user,
+        group   => $openvpn::admin_group,
+        mode    => '0600',
+        content => $tls_auth_content,
+      }
+    } elsif $tls_auth_file {
+      # Nada
+    } else {
+      exec { "${openvpn::openvpn} --genkey --secret \"${real_tls_auth_file}\"":
+        creates => $real_tls_auth_file,
+      }
+      ->
+      file { $real_tls_auth_file:
+        ensure => file,
+        owner  => $openvpn::admin_user,
+        group  => $openvpn::admin_group,
+        mode   => '0600',
+      }
+    }
+  }
 
   concat { "${openvpn::etcdir}/${title}.conf":
     ensure => present,

@@ -9,26 +9,28 @@ define openvpn::client (
   $ca = undef,
   $cert = undef,
   $key = undef,
-  $ta = undef,
-  $ta_content = undef,
+  $tls_auth_enabled = undef,
+  $tls_auth_content = undef,
+  $tls_auth_file = undef,
   $mute = undef,
 ) {
-  if $ta and !$ta_content {
-    fail("Enabling 'ta' requires setting 'ta_content' too.")
+  if $tls_auth_enabled and !$tls_auth_content and !$tls_auth_file {
+    fail("Enabling 'tls_auth_enabled' requires setting 'tls_auth_content' or 'tls_auth_file' too.")
   }
   openvpn::config { $title:
-    role       => 'client',
-    remote     => $remote,
-    proto      => $proto,
-    port       => $port,
-    dev        => $dev,
-    user       => $user,
-    group      => $group,
-    verb       => $verb,
-    ca         => $ca,
-    cert       => $cert,
-    key        => $key,
-    ta         => $ta,
-    ta_content => $ta_content,
+    role             => 'client',
+    remote           => $remote,
+    proto            => $proto,
+    port             => $port,
+    dev              => $dev,
+    user             => $user,
+    group            => $group,
+    verb             => $verb,
+    ca               => $ca,
+    cert             => $cert,
+    key              => $key,
+    tls_auth_enabled => $tls_auth_enabled,
+    tls_auth_content => $tls_auth_content,
+    tls_auth_file    => $tls_auth_file,
   }
 }
