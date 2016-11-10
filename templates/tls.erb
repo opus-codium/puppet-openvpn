@@ -1,8 +1,8 @@
 ca "<%= @ca %>"
 cert "<%= @cert %>"
 key "<%= @key %>"
-<%- if @crl -%>
-crl-verify "<%= @crl %>"
+<%- if @crl_verify_file -%>
+crl-verify "<%= @crl_verify_file %>"
 <%- end -%>
 <%- if @dh -%>
 dh "<%= @dh %>"

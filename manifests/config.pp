@@ -17,7 +17,7 @@ define openvpn::config (
   $tls_auth_enabled = false,
   $tls_auth_content = undef,
   $tls_auth_file = undef,
-  $crl = undef,
+  $crl_verify_file = undef,
   $status = undef,
   $status_version = undef,
   $ifconfig_pool_persist_enabled = undef,
