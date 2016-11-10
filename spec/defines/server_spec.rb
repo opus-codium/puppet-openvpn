@@ -29,14 +29,14 @@ describe 'openvpn::server' do
     let(:ta) { true }
 
     describe 'generated' do
-      it { is_expected.to contain_exec('/usr/sbin/openvpn --genkey --secret "/etc/openvpn/main-ta.pem"') }
-      it { is_expected.to contain_file('/etc/openvpn/main-ta.pem') }
+      it { is_expected.to contain_exec('/usr/sbin/openvpn --genkey --secret "/etc/openvpn/main-ta.key"') }
+      it { is_expected.to contain_file('/etc/openvpn/main-ta.key') }
     end
 
     describe 'passed' do
       let(:ta_content) { 'bloub' }
 
-      it { is_expected.to contain_file('/etc/openvpn/main-ta.pem').with(content: 'bloub') }
+      it { is_expected.to contain_file('/etc/openvpn/main-ta.key').with(content: 'bloub') }
     end
   end
 end

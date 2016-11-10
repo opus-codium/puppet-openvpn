@@ -29,7 +29,7 @@ describe 'openvpn::client' do
       describe 'with content' do
         let(:ta_content) { 'bloub' }
 
-        it { is_expected.to contain_file('/etc/openvpn/client-ta.pem').with(content: 'bloub') }
+        it { is_expected.to contain_file('/etc/openvpn/client-ta.key').with(content: 'bloub') }
       end
 
       describe 'without content' do
