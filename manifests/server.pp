@@ -16,6 +16,7 @@ define openvpn::server (
   $dh = undef,
   $status = true,
   $status_version = 2,
+  $verb = 3,
   $ipp = undef,
   $max_clients = undef,
   $mute = undef,
@@ -44,5 +45,6 @@ define openvpn::server (
     ipp            => $ipp,
     plugins        => $plugins,
     push           => $push,
+    verb           => $verb,
   }
 }
