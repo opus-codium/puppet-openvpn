@@ -2,7 +2,9 @@ define openvpn::config (
   $role,
   $server_network = undef,
   $server_netmask = undef,
-  $remote = undef,
+  $remote_host = undef,
+  $remote_port = undef,
+  $remote_proto = undef,
   $proto = 'udp',
   $port = 1194,
   $dev = 'tun',
@@ -40,7 +42,7 @@ define openvpn::config (
     validate_ip_address($server_network)
     validate_ip_address($server_netmask)
   } else {
-    if $remote == undef { fail('remote must be set') }
+    if $remote_host == undef { fail('remote_host must be set') }
   }
 
   $filename = "${openvpn::etcdir}/${title}.conf"

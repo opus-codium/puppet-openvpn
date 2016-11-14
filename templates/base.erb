@@ -4,15 +4,9 @@ client
 server-poll-timeout 4
 nobind
 
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 tcp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
-remote <%= @remote %> 1194 udp
+<% @remote_proto.each do |proto| -%>
+remote <%= @remote_host %> <%= @remote_port %> <%= proto %>
+<% end -%>
 <%- else -%>
 server <%= @server_network %> <%= @server_netmask %>
 

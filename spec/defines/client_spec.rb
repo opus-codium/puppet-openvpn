@@ -4,7 +4,7 @@ describe 'openvpn::client' do
   let(:title) { 'client' }
   let(:params) do
     {
-      remote: '203.0.113.27',
+      remote_host: '203.0.113.27',
       tls_auth_enabled: tls_auth_enabled,
       tls_auth_content: tls_auth_content,
       tls_auth_file: tls_auth_file,
@@ -21,7 +21,7 @@ describe 'openvpn::client' do
 
   it do
     is_expected.to contain_openvpn__config('client').with(
-      remote: '203.0.113.27',
+      remote_host: '203.0.113.27',
     )
   end
 

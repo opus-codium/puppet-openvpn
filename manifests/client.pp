@@ -1,7 +1,8 @@
 define openvpn::client (
-  $remote,
+  $remote_host,
+  $remote_port = 1194,
+  $remote_proto = ['udp', 'udp', 'tcp', 'udp', 'udp', 'udp', 'udp', 'udp', 'udp'],
   $proto = 'udp',
-  $port = 1194,
   $dev = 'tun',
   $user = 'nobody',
   $group = 'nogroup',
@@ -14,14 +15,16 @@ define openvpn::client (
   $tls_auth_file = undef,
   $mute = undef,
 ) {
+  validate_array($remote_proto)
+
   if $tls_auth_enabled and !$tls_auth_content and !$tls_auth_file {
     fail("Enabling 'tls_auth_enabled' requires setting 'tls_auth_content' or 'tls_auth_file' too.")
   }
   openvpn::config { $title:
     role             => 'client',
-    remote           => $remote,
-    proto            => $proto,
-    port             => $port,
+    remote_host      => $remote_host,
+    remote_port      => $remote_port,
+    remote_proto     => $remote_proto,
     dev              => $dev,
     user             => $user,
     group            => $group,
