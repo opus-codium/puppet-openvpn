@@ -3,9 +3,10 @@ define openvpn::service (
 ) {
   case $::osfamily {
     'Debian': {
+      $service_name = "openvpn-${title}"
       $service_provider = 'systemd'
 
-      file { "/etc/systemd/system/${title}.service":
+      file { "/etc/systemd/system/${service_name}.service":
         ensure  => file,
         owner   => 'root',
         group   => 'root',
@@ -13,26 +14,27 @@ define openvpn::service (
         content => template('openvpn/openvpn.service.erb'),
       }
 
-      exec { "systemd-conf-reload-${title}":
+      exec { "systemd-conf-reload-${service_name}":
         command     => '/bin/systemctl daemon-reload',
         refreshonly => true,
       }
 
-      File["/etc/systemd/system/${title}.service"] ~> Exec["systemd-conf-reload-${title}"]
+      File["/etc/systemd/system/${service_name}.service"] ~> Exec["systemd-conf-reload-${service_name}"]
       if $manage_service {
-        Exec["systemd-conf-reload-${title}"] -> Service[$title]
+        Exec["systemd-conf-reload-${service_name}"] -> Service[$service_name]
       }
     }
     'FreeBSD': {
+      $service_name = "openvpn_${title}"
       $service_provider = 'freebsd'
 
-      file { "/usr/local/etc/rc.d/${title}":
+      file { "/usr/local/etc/rc.d/${service_name}":
         ensure => link,
         target => '/usr/local/etc/rc.d/openvpn',
       }
 
       if $manage_service {
-        File["/usr/local/etc/rc.d/${title}"] -> Service[$title]
+        File["/usr/local/etc/rc.d/${service_name}"] -> Service[$service_name]
       }
     }
     default: {
@@ -41,7 +43,7 @@ define openvpn::service (
   }
 
   if $manage_service {
-    service { $title:
+    service { $service_name:
       ensure   => running,
       enable   => true,
       provider => $service_provider,
