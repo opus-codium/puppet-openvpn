@@ -18,6 +18,6 @@ dh "<%= @dh %>"
 # a copy of this key.
 # The second parameter should be '0'
 # on the server and '1' on the clients.
-tls-auth "<%= @tls_auth_file %>" <%= if @role == 'server' then 0 else 1 end %>
+tls-auth "<%= @real_tls_auth_file %>" <%= if @role == 'server' then 0 else 1 end %>
 <%- end -%>
 
