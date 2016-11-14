@@ -1,6 +1,6 @@
 define openvpn::server (
-  $server,
-  $netmask,
+  $server_network,
+  $server_netmask,
   $proto = 'udp',
   $port = 1194,
   $dev = 'tun',
@@ -27,8 +27,8 @@ define openvpn::server (
 ) {
   openvpn::config { $title:
     role                          => 'server',
-    server                        => $server,
-    netmask                       => $netmask,
+    server_network                => $server_network,
+    server_netmask                => $server_netmask,
     proto                         => $proto,
     port                          => $port,
     dev                           => $dev,

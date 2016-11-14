@@ -1,7 +1,7 @@
 define openvpn::config (
   $role,
-  $server = undef,
-  $netmask = undef,
+  $server_network = undef,
+  $server_netmask = undef,
   $remote = undef,
   $proto = 'udp',
   $port = 1194,
@@ -37,8 +37,8 @@ define openvpn::config (
 
   if $role == 'server' {
     validate_re($topology, ['^net30$', '^p2p$', '^subnet$'])
-    validate_ip_address($server)
-    validate_ip_address($netmask)
+    validate_ip_address($server_network)
+    validate_ip_address($server_netmask)
   } else {
     if $remote == undef { fail('remote must be set') }
   }

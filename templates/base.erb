@@ -14,7 +14,7 @@ remote <%= @remote %> 1194 udp
 remote <%= @remote %> 1194 udp
 remote <%= @remote %> 1194 udp
 <%- else -%>
-server <%= @server %> <%= @netmask %>
+server <%= @server_network %> <%= @server_netmask %>
 
 topology <%= @topology %>
 <%- end -%>

@@ -4,8 +4,8 @@ describe 'openvpn::server' do
   let(:title) { 'main' }
   let(:params) do
     {
-      server: '192.168.0.0',
-      netmask: '255.255.255.0',
+      server_network: '192.168.0.0',
+      server_netmask: '255.255.255.0',
       ifconfig_pool_persist_enabled: ifconfig_pool_persist_enabled,
       ifconfig_pool_persist_file: ifconfig_pool_persist_file,
       tls_auth_enabled: tls_auth_enabled,
@@ -26,8 +26,8 @@ describe 'openvpn::server' do
 
   it do
     is_expected.to contain_openvpn__config('main').with(
-      server: '192.168.0.0',
-      netmask: '255.255.255.0',
+      server_network: '192.168.0.0',
+      server_netmask: '255.255.255.0',
     )
   end
 

@@ -35,8 +35,8 @@ unless explicitely configured through Puppet.**
 
 ~~~puppet
 openvpn::server { 'server':
-  server  => '192.168.0.0',
-  netmask => '255.255.255.0',
+  server_netowrk => '192.168.0.0',
+  server_netmask => '255.255.255.0',
 }
 
 openvpn::client { 'client':
