@@ -14,6 +14,7 @@ define openvpn::client (
   $tls_auth_content = undef,
   $tls_auth_file = undef,
   $mute = undef,
+  $manage_service = true,
 ) {
   validate_array($remote_proto)
 
@@ -35,5 +36,6 @@ define openvpn::client (
     tls_auth_enabled => $tls_auth_enabled,
     tls_auth_content => $tls_auth_content,
     tls_auth_file    => $tls_auth_file,
+    manage_service   => $manage_service,
   }
 }

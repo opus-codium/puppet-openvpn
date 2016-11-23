@@ -8,6 +8,7 @@ describe 'openvpn::client' do
       tls_auth_enabled: tls_auth_enabled,
       tls_auth_content: tls_auth_content,
       tls_auth_file: tls_auth_file,
+      manage_service: manage_service,
     }
   end
   let(:facts) do
@@ -18,11 +19,26 @@ describe 'openvpn::client' do
   let(:tls_auth_enabled) { :undef }
   let(:tls_auth_content) { :undef }
   let(:tls_auth_file) { :undef }
+  let(:manage_service) { :undef }
 
   it do
     is_expected.to contain_openvpn__config('client').with(
       remote_host: '203.0.113.27',
     )
+  end
+
+  describe 'manage_service' do
+    describe 'enabled' do
+      let(:manage_service) { true }
+
+      it { is_expected.to contain_service('openvpn-client') }
+    end
+
+    describe 'disabled' do
+      let(:manage_service) { false }
+
+      it { is_expected.not_to contain_service('openvpn-client') }
+    end
   end
 
   describe 'tls_auth_enabled' do

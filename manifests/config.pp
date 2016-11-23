@@ -28,6 +28,7 @@ define openvpn::config (
   $mute = undef,
   $plugins = [],
   $push = [],
+  $manage_service = true,
 ) {
   include openvpn
 
@@ -212,5 +213,6 @@ define openvpn::config (
   }
 
   openvpn::service { $title:
+    manage_service => $manage_service,
   }
 }

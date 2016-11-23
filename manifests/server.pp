@@ -24,6 +24,7 @@ define openvpn::server (
   $mute = undef,
   $plugins = [],
   $push = [],
+  $manage_service = true,
 ) {
   openvpn::config { $title:
     role                          => 'server',
@@ -50,5 +51,6 @@ define openvpn::server (
     plugins                       => $plugins,
     push                          => $push,
     verb                          => $verb,
+    manage_service                => $manage_service,
   }
 }

@@ -11,6 +11,7 @@ describe 'openvpn::server' do
       tls_auth_enabled: tls_auth_enabled,
       tls_auth_content: tls_auth_content,
       tls_auth_file: tls_auth_file,
+      manage_service: manage_service
     }
   end
   let(:facts) do
@@ -23,12 +24,27 @@ describe 'openvpn::server' do
   let(:tls_auth_enabled) { :undef }
   let(:tls_auth_content) { :undef }
   let(:tls_auth_file) { :undef }
+  let(:manage_service) { false }
 
   it do
     is_expected.to contain_openvpn__config('main').with(
       server_network: '192.168.0.0',
       server_netmask: '255.255.255.0',
     )
+  end
+
+  describe 'manage_service' do
+    describe 'enabled' do
+      let(:manage_service) { true }
+
+      it { is_expected.to contain_service('openvpn-main') }
+    end
+
+    describe 'disabled' do
+      let(:manage_service) { false }
+
+      it { is_expected.not_to contain_service('openvpn-main') }
+    end
   end
 
   describe 'ifconfig_pool_persist_enabled' do
