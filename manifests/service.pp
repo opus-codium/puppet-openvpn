@@ -25,7 +25,7 @@ define openvpn::service (
       }
     }
     'FreeBSD': {
-      $service_name = "openvpn_${title}"
+      $service_name = $title
       $service_provider = 'freebsd'
 
       file { "/usr/local/etc/rc.d/${service_name}":
