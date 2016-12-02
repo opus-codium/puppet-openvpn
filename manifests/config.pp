@@ -58,9 +58,9 @@ define openvpn::config (
     if $tls_auth_content {
       file { $real_tls_auth_file:
         ensure  => file,
-        owner   => $openvpn::admin_user,
-        group   => $openvpn::admin_group,
-        mode    => '0600',
+        owner   => $user,
+        group   => $group,
+        mode    => '0400',
         content => $tls_auth_content,
       }
     } elsif $tls_auth_file {
@@ -72,9 +72,9 @@ define openvpn::config (
       ->
       file { $real_tls_auth_file:
         ensure => file,
-        owner  => $openvpn::admin_user,
-        group  => $openvpn::admin_group,
-        mode   => '0600',
+        owner  => $user,
+        group  => $group,
+        mode   => '0400',
       }
     }
   }
