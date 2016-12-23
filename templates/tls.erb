@@ -20,4 +20,5 @@ dh "<%= @dh %>"
 # on the server and '1' on the clients.
 tls-auth "<%= @real_tls_auth_file %>" <%= if @role == 'server' then 0 else 1 end %>
 <%- end -%>
+tls-version-min 1.2
 
