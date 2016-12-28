@@ -79,7 +79,7 @@ define openvpn::config (
     }
   }
 
-  concat { "${openvpn::etcdir}/${title}.conf":
+  concat { $filename:
     ensure => present,
     owner  => 'root',
     group  => $::openvpn::admin_group,
@@ -215,4 +215,7 @@ define openvpn::config (
   openvpn::service { $title:
     manage_service => $manage_service,
   }
+
+  Concat[$filename] ~>
+  Openvpn::Service[$title]
 }
