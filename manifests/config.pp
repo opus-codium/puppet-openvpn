@@ -69,8 +69,7 @@ define openvpn::config (
       exec { "${openvpn::openvpn} --genkey --secret \"${real_tls_auth_file}\"":
         creates => $real_tls_auth_file,
       }
-      ->
-      file { $real_tls_auth_file:
+      -> file { $real_tls_auth_file:
         ensure => file,
         owner  => $user,
         group  => $group,
@@ -216,6 +215,6 @@ define openvpn::config (
     manage_service => $manage_service,
   }
 
-  Concat[$filename] ~>
-  Openvpn::Service[$title]
+  Concat[$filename]
+  ~> Openvpn::Service[$title]
 }
