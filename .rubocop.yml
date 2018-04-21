@@ -1,13 +1,12 @@
-AllCops:
-  Exclude:
-    - spec/fixtures/**/*
-    - vendor/**/*
-
+---
 Metrics/LineLength:
-  Max: 120
-
+  Description: People have wide screens, use them.
+  Max: 200
+Metrics/BlockLength:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
+  Description: Be consistent with Puppet's style
+  EnforcedStyleForMultiline: comma
 Style/TrailingCommaInArguments:
-  Enabled: false
-
-Style/TrailingCommaInLiteral:
-  Enabled: false
+  Description: Be consistent with Puppet's style
+  EnforcedStyleForMultiline: comma
