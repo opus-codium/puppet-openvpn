@@ -4,7 +4,7 @@ describe 'openvpn::service' do
   let(:title) { 'test' }
   let(:facts) do
     {
-      osfamily: osfamily
+      osfamily: osfamily,
     }
   end
 

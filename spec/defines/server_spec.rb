@@ -11,7 +11,7 @@ describe 'openvpn::server' do
       tls_auth_enabled: tls_auth_enabled,
       tls_auth_content: tls_auth_content,
       tls_auth_file: tls_auth_file,
-      manage_service: manage_service
+      manage_service: manage_service,
     }
   end
   let(:facts) do

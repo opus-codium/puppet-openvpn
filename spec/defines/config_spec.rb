@@ -4,7 +4,7 @@ describe 'openvpn::config' do
   let(:title) { 'test' }
   let(:facts) do
     {
-      osfamily: osfamily
+      osfamily: osfamily,
     }
   end
   let(:params) do
@@ -12,7 +12,7 @@ describe 'openvpn::config' do
       role: 'server',
       topology: 'subnet',
       server_network: '10.0.0.0',
-      server_netmask: '255.0.0.0'
+      server_netmask: '255.0.0.0',
     }
   end
 
